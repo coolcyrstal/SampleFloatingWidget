@@ -1,5 +1,6 @@
 package com.example.chayent.samplefloatingwidget;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -16,6 +17,8 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.andremion.counterfab.CounterFab;
+
+import java.util.Objects;
 
 /**
  * FloatingWidgetService.java
@@ -51,6 +54,7 @@ public class FloatingWidgetService extends Service {
             mWindowManager.removeView(mOverlayView);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -67,7 +71,7 @@ public class FloatingWidgetService extends Service {
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                        WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
             }else{
                 params = new WindowManager.LayoutParams(
@@ -84,7 +88,7 @@ public class FloatingWidgetService extends Service {
             params.y = 100;
 
             mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-            mWindowManager.addView(mOverlayView, params);
+            Objects.requireNonNull(mWindowManager).addView(mOverlayView, params);
 
             Display display = mWindowManager.getDefaultDisplay();
             final Point size = new Point();
@@ -129,7 +133,7 @@ public class FloatingWidgetService extends Service {
                         case MotionEvent.ACTION_UP:
                             if (activity_background) {
                                 //xDiff and yDiff contain the minor changes in position when the view is clicked.
-                                float xDiff = event.getRawX() - initialTouchX;
+                                float xDiff = initialTouchX - event.getRawX();
                                 float yDiff = event.getRawY() - initialTouchY;
 
                                 if ((Math.abs(xDiff) < 5) && (Math.abs(yDiff) < 5)) {
@@ -152,7 +156,7 @@ public class FloatingWidgetService extends Service {
                             return true;
 
                         case MotionEvent.ACTION_MOVE:
-                            int xDiff = Math.round(event.getRawX() - initialTouchX);
+                            int xDiff = Math.round(initialTouchX - event.getRawX());
                             int yDiff = Math.round(event.getRawY() - initialTouchY);
 
                             //Calculate the X and Y coordinates of the view.

@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         // To prevent starting the service if the required permission is NOT granted.
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(this)) {
             startService(new Intent(MainActivity.this, FloatingWidgetService.class).putExtra("activity_background", true));
-            finish();
+//            finish();
         } else {
             errorToast();
         }
