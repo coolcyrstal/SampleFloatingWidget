@@ -73,7 +73,7 @@ public class FloatingWidgetService extends Service {
                         WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
-            }else{
+            } else {
                 params = new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.WRAP_CONTENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
@@ -171,7 +171,9 @@ public class FloatingWidgetService extends Service {
                 }
             });
         } else {
-            counterFab.increase();
+            if (!activity_background) {
+                counterFab.increase();
+            }
         }
 
         return super.onStartCommand(intent, flags, startId);

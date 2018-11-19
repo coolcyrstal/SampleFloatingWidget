@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:clickable="true"
+    android:focusable="true"
     android:orientation="vertical"
-    android:visibility="visible"
-    android:focusable="true">
+    android:visibility="visible">
 
 
     <com.andremion.counterfab.CounterFab
@@ -17,5 +17,11 @@
         android:src="@android:drawable/ic_input_add"
         app:fabSize="normal" />
 
-
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:tint="@color/colorPrimary"/>
 </RelativeLayout>
