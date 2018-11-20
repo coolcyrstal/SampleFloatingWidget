@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout"
     android:layout_width="match_parent"
@@ -9,19 +9,33 @@
     android:orientation="vertical"
     android:visibility="visible">
 
-
-    <com.andremion.counterfab.CounterFab
-        android:id="@+id/fabHead"
+    <LinearLayout
+        android:id="@+id/floating_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_input_add"
-        app:fabSize="normal" />
+        android:orientation="horizontal">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:tint="@color/colorPrimary"/>
-</RelativeLayout>
+        <com.andremion.counterfab.CounterFab
+            android:id="@+id/floating_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_input_add"
+            app:fabSize="normal" />
+
+        <ImageView
+            android:id="@+id/close_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:tint="@color/colorAccent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/chat_box"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:visibility="gone"/>
+</LinearLayout>

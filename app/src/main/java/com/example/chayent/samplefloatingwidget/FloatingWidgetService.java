@@ -3,10 +3,12 @@ package com.example.chayent.samplefloatingwidget;
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,7 +16,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.andremion.counterfab.CounterFab;
 
@@ -33,6 +36,9 @@ public class FloatingWidgetService extends Service {
     int mWidth;
     CounterFab counterFab;
     boolean activity_background;
+    private ImageView mImageViewClose;
+    private LinearLayout mLinearLayoutChatBox;
+    private LinearLayout mFloatingLayout;
 
     @Nullable
     @Override
@@ -50,8 +56,9 @@ public class FloatingWidgetService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mOverlayView != null)
+        if (mOverlayView != null) {
             mWindowManager.removeView(mOverlayView);
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -85,7 +92,7 @@ public class FloatingWidgetService extends Service {
             //Specify the view position
             params.gravity = Gravity.END | Gravity.TOP;        //Initially view will be added to top-left corner
             params.x = 0;
-            params.y = 100;
+            params.y = 200;
 
             mWindowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
             Objects.requireNonNull(mWindowManager).addView(mOverlayView, params);
@@ -94,10 +101,21 @@ public class FloatingWidgetService extends Service {
             final Point size = new Point();
             display.getSize(size);
 
-            counterFab = mOverlayView.findViewById(R.id.fabHead);
+            counterFab = mOverlayView.findViewById(R.id.floating_head);
             counterFab.setCount(1);
 
-            final RelativeLayout layout = mOverlayView.findViewById(R.id.layout);
+            mImageViewClose = mOverlayView.findViewById(R.id.close_button);
+            mImageViewClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    stopSelf();
+                }
+            });
+
+            mFloatingLayout = mOverlayView.findViewById(R.id.floating_layout);
+            mLinearLayoutChatBox = mOverlayView.findViewById(R.id.chat_box);
+
+            final LinearLayout layout = mOverlayView.findViewById(R.id.layout);
             ViewTreeObserver vto = layout.getViewTreeObserver();
             vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
@@ -105,13 +123,35 @@ public class FloatingWidgetService extends Service {
                     layout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     int width = layout.getMeasuredWidth();
 
+
                     //To get the accurate middle of the screen we subtract the width of the android floating widget.
                     mWidth = size.x - width;
-
                 }
             });
 
-            counterFab.setOnTouchListener(new View.OnTouchListener() {
+            counterFab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("test", "onclick");
+                    if (mLinearLayoutChatBox.getVisibility() == View.VISIBLE) {
+                        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+                        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                        params.gravity = Gravity.END | Gravity.TOP;
+                        mImageViewClose.setVisibility(View.VISIBLE);
+                        mLinearLayoutChatBox.setVisibility(View.GONE);
+                        mWindowManager.updateViewLayout(mOverlayView, params);
+                    } else {
+                        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+                        params.height = WindowManager.LayoutParams.MATCH_PARENT;
+                        params.gravity = Gravity.START | Gravity.TOP;
+                        mImageViewClose.setVisibility(View.GONE);
+                        mLinearLayoutChatBox.setVisibility(View.VISIBLE);
+                        mWindowManager.updateViewLayout(mOverlayView, params);
+                    }
+                }
+            });
+
+            mFloatingLayout.setOnTouchListener(new View.OnTouchListener() {
                 private int initialX;
                 private int initialY;
                 private float initialTouchX;
