@@ -7,7 +7,6 @@ import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,12 +33,13 @@ public class FloatingWidgetService extends Service {
     private WindowManager mWindowManager;
     private View mOverlayView;
     int mWidth;
-    CounterFab counterFab;
-    boolean activity_background;
+    CounterFab mCounterFab;
+    boolean mActivityBackground;
     private ImageView mImageViewClose;
     private LinearLayout mLinearLayoutChatBox;
     private LinearLayout mFloatingLayout;
     private Button mButtonCloseStream;
+    private int mClickThreshold = 5;
 
     @Nullable
     @Override
@@ -67,7 +67,7 @@ public class FloatingWidgetService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         if (intent != null) {
-            activity_background = intent.getBooleanExtra("activity_background", false);
+            mActivityBackground = intent.getBooleanExtra("mActivityBackground", false);
         }
 
         if (mOverlayView == null) {
@@ -102,8 +102,8 @@ public class FloatingWidgetService extends Service {
             final Point size = new Point();
             display.getSize(size);
 
-            counterFab = mOverlayView.findViewById(R.id.floating_head);
-            counterFab.setCount(1);
+            mCounterFab = mOverlayView.findViewById(R.id.floating_head);
+            mCounterFab.setCount(1);
 
             mImageViewClose = mOverlayView.findViewById(R.id.close_chat_button);
             mImageViewClose.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +138,7 @@ public class FloatingWidgetService extends Service {
                 }
             });
 
-//            counterFab.setOnClickListener(new View.OnClickListener() {
+//            mCounterFab.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
 //                    if (mLinearLayoutChatBox.getVisibility() == View.VISIBLE) {
@@ -159,31 +159,31 @@ public class FloatingWidgetService extends Service {
 //                }
 //            });
 
-            counterFab.setOnTouchListener(new View.OnTouchListener() {
-                private int initialX;
-                private int initialY;
-                private float initialTouchX;
-                private float initialTouchY;
+            mCounterFab.setOnTouchListener(new View.OnTouchListener() {
+                private int mInitialX;
+                private int mInitialY;
+                private float mInitialTouchX;
+                private float mInitialTouchY;
 
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                             //remember the initial position.
-                            initialX = params.x;
-                            initialY = params.y;
+                            mInitialX = params.x;
+                            mInitialY = params.y;
 
                             //get the touch location
-                            initialTouchX = event.getRawX();
-                            initialTouchY = event.getRawY();
+                            mInitialTouchX = event.getRawX();
+                            mInitialTouchY = event.getRawY();
                             return true;
 
                         case MotionEvent.ACTION_UP:
                             //xDiff and yDiff contain the minor changes in position when the view is clicked.
-                            float xDiff = initialTouchX - event.getRawX();
-                            float yDiff = event.getRawY() - initialTouchY;
+                            float xDiff = mInitialTouchX - event.getRawX();
+                            float yDiff = event.getRawY() - mInitialTouchY;
 
-                            if ((Math.abs(xDiff) < 5) && (Math.abs(yDiff) < 5)) {
+                            if ((Math.abs(xDiff) < mClickThreshold) && (Math.abs(yDiff) < mClickThreshold)) {
 //                                Log.d("test", "onclick");
                                 if (mLinearLayoutChatBox.getVisibility() == View.VISIBLE) {
                                     params.width = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -201,10 +201,10 @@ public class FloatingWidgetService extends Service {
                                     mWindowManager.updateViewLayout(mOverlayView, params);
                                 }
                             }
-//                            if (activity_background) {
+//                            if (mActivityBackground) {
 //                                if ((Math.abs(xDiff) < 5) && (Math.abs(yDiff) < 5)) {
 //                                    Intent intent = new Intent(FloatingWidgetService.this, MainActivity.class);
-//                                    intent.putExtra("badge_count", counterFab.getCount());
+//                                    intent.putExtra("badge_count", mCounterFab.getCount());
 //                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                                    startActivity(intent);
 //
@@ -222,12 +222,12 @@ public class FloatingWidgetService extends Service {
                             return true;
 
                         case MotionEvent.ACTION_MOVE:
-                            int xDiffMove = Math.round(initialTouchX - event.getRawX());
-                            int yDiffMove = Math.round(event.getRawY() - initialTouchY);
+                            int xDiffMove = Math.round(mInitialTouchX - event.getRawX());
+                            int yDiffMove = Math.round(event.getRawY() - mInitialTouchY);
 
                             //Calculate the X and Y coordinates of the view.
-                            params.x = initialX + xDiffMove;
-                            params.y = initialY + yDiffMove;
+                            params.x = mInitialX + xDiffMove;
+                            params.y = mInitialY + yDiffMove;
 
                             //Update the layout with new X & Y coordinates
                             mWindowManager.updateViewLayout(mOverlayView, params);
@@ -237,8 +237,8 @@ public class FloatingWidgetService extends Service {
                 }
             });
         } else {
-            if (!activity_background) {
-                counterFab.increase();
+            if (!mActivityBackground) {
+                mCounterFab.increase();
             }
         }
 

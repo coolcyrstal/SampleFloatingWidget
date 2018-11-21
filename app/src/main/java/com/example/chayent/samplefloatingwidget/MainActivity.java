@@ -15,8 +15,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private static final int DRAW_OVER_OTHER_APP_PERMISSION = 123;
-    private Button button;
-    private TextView textView;
+    private Button mButton;
+    private TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
 
         askForSystemOverlayPermission();
 
-        button = (Button) findViewById(R.id.button);
-        textView = (TextView) findViewById(R.id.textView);
+        mButton = (Button) findViewById(R.id.button);
+        mTextView = (TextView) findViewById(R.id.textView);
 
         int badge_count = getIntent().getIntExtra("badge_count", 0);
-        textView.setText(badge_count + " messages received previously");
-        button.setOnClickListener(new View.OnClickListener() {
+        mTextView.setText(badge_count + " messages received previously");
+        mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(MainActivity.this)) {
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         // To prevent starting the service if the required permission is NOT granted.
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(this)) {
-            startService(new Intent(MainActivity.this, FloatingWidgetService.class).putExtra("activity_background", true));
+            startService(new Intent(MainActivity.this, FloatingWidgetService.class).putExtra("mActivityBackground", true));
 //            finish();
         } else {
             errorToast();
