@@ -23,7 +23,7 @@
             app:fabSize="normal" />
 
         <ImageView
-            android:id="@+id/close_button"
+            android:id="@+id/close_chat_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
@@ -37,5 +37,13 @@
         android:layout_margin="16dp"
         android:background="@color/colorPrimary"
         android:orientation="vertical"
-        android:visibility="gone"/>
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/stream_close_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="close"/>
+    </LinearLayout>
 </LinearLayout>

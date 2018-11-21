@@ -3,7 +3,6 @@ package com.example.chayent.samplefloatingwidget;
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.os.IBinder;
@@ -16,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -39,6 +39,7 @@ public class FloatingWidgetService extends Service {
     private ImageView mImageViewClose;
     private LinearLayout mLinearLayoutChatBox;
     private LinearLayout mFloatingLayout;
+    private Button mButtonCloseStream;
 
     @Nullable
     @Override
@@ -104,7 +105,7 @@ public class FloatingWidgetService extends Service {
             counterFab = mOverlayView.findViewById(R.id.floating_head);
             counterFab.setCount(1);
 
-            mImageViewClose = mOverlayView.findViewById(R.id.close_button);
+            mImageViewClose = mOverlayView.findViewById(R.id.close_chat_button);
             mImageViewClose.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -114,6 +115,7 @@ public class FloatingWidgetService extends Service {
 
             mFloatingLayout = mOverlayView.findViewById(R.id.floating_layout);
             mLinearLayoutChatBox = mOverlayView.findViewById(R.id.chat_box);
+            mButtonCloseStream = mOverlayView.findViewById(R.id.stream_close_button);
 
             final LinearLayout layout = mOverlayView.findViewById(R.id.layout);
             ViewTreeObserver vto = layout.getViewTreeObserver();
@@ -129,29 +131,35 @@ public class FloatingWidgetService extends Service {
                 }
             });
 
-            counterFab.setOnClickListener(new View.OnClickListener() {
+            mButtonCloseStream.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("test", "onclick");
-                    if (mLinearLayoutChatBox.getVisibility() == View.VISIBLE) {
-                        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
-                        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
-                        params.gravity = Gravity.END | Gravity.TOP;
-                        mImageViewClose.setVisibility(View.VISIBLE);
-                        mLinearLayoutChatBox.setVisibility(View.GONE);
-                        mWindowManager.updateViewLayout(mOverlayView, params);
-                    } else {
-                        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-                        params.height = WindowManager.LayoutParams.MATCH_PARENT;
-                        params.gravity = Gravity.START | Gravity.TOP;
-                        mImageViewClose.setVisibility(View.GONE);
-                        mLinearLayoutChatBox.setVisibility(View.VISIBLE);
-                        mWindowManager.updateViewLayout(mOverlayView, params);
-                    }
+                    stopSelf();
                 }
             });
 
-            mFloatingLayout.setOnTouchListener(new View.OnTouchListener() {
+//            counterFab.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (mLinearLayoutChatBox.getVisibility() == View.VISIBLE) {
+//                        params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+//                        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+//                        params.gravity = Gravity.END | Gravity.TOP;
+//                        mImageViewClose.setVisibility(View.VISIBLE);
+//                        mLinearLayoutChatBox.setVisibility(View.GONE);
+//                        mWindowManager.updateViewLayout(mOverlayView, params);
+//                    } else {
+//                        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+//                        params.height = WindowManager.LayoutParams.MATCH_PARENT;
+//                        params.gravity = Gravity.START | Gravity.TOP;
+//                        mImageViewClose.setVisibility(View.GONE);
+//                        mLinearLayoutChatBox.setVisibility(View.VISIBLE);
+//                        mWindowManager.updateViewLayout(mOverlayView, params);
+//                    }
+//                }
+//            });
+
+            counterFab.setOnTouchListener(new View.OnTouchListener() {
                 private int initialX;
                 private int initialY;
                 private float initialTouchX;
@@ -171,21 +179,39 @@ public class FloatingWidgetService extends Service {
                             return true;
 
                         case MotionEvent.ACTION_UP:
-                            if (activity_background) {
-                                //xDiff and yDiff contain the minor changes in position when the view is clicked.
-                                float xDiff = initialTouchX - event.getRawX();
-                                float yDiff = event.getRawY() - initialTouchY;
+                            //xDiff and yDiff contain the minor changes in position when the view is clicked.
+                            float xDiff = initialTouchX - event.getRawX();
+                            float yDiff = event.getRawY() - initialTouchY;
 
-                                if ((Math.abs(xDiff) < 5) && (Math.abs(yDiff) < 5)) {
-                                    Intent intent = new Intent(FloatingWidgetService.this, MainActivity.class);
-                                    intent.putExtra("badge_count", counterFab.getCount());
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-
-                                    //close the service and remove the fab view
-                                    stopSelf();
+                            if ((Math.abs(xDiff) < 5) && (Math.abs(yDiff) < 5)) {
+//                                Log.d("test", "onclick");
+                                if (mLinearLayoutChatBox.getVisibility() == View.VISIBLE) {
+                                    params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+                                    params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                                    params.gravity = Gravity.END | Gravity.TOP;
+                                    mImageViewClose.setVisibility(View.VISIBLE);
+                                    mLinearLayoutChatBox.setVisibility(View.GONE);
+                                    mWindowManager.updateViewLayout(mOverlayView, params);
+                                } else {
+                                    params.width = WindowManager.LayoutParams.MATCH_PARENT;
+                                    params.height = WindowManager.LayoutParams.MATCH_PARENT;
+                                    params.gravity = Gravity.START | Gravity.TOP;
+                                    mImageViewClose.setVisibility(View.GONE);
+                                    mLinearLayoutChatBox.setVisibility(View.VISIBLE);
+                                    mWindowManager.updateViewLayout(mOverlayView, params);
                                 }
                             }
+//                            if (activity_background) {
+//                                if ((Math.abs(xDiff) < 5) && (Math.abs(yDiff) < 5)) {
+//                                    Intent intent = new Intent(FloatingWidgetService.this, MainActivity.class);
+//                                    intent.putExtra("badge_count", counterFab.getCount());
+//                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                    startActivity(intent);
+//
+//                                    //close the service and remove the fab view
+//                                    stopSelf();
+//                                }
+//                            }
 
                             //Logic to auto-position the widget based on where it is positioned currently w.r.t middle of the screen.
                             int middle = mWidth / 2;
@@ -196,12 +222,12 @@ public class FloatingWidgetService extends Service {
                             return true;
 
                         case MotionEvent.ACTION_MOVE:
-                            int xDiff = Math.round(initialTouchX - event.getRawX());
-                            int yDiff = Math.round(event.getRawY() - initialTouchY);
+                            int xDiffMove = Math.round(initialTouchX - event.getRawX());
+                            int yDiffMove = Math.round(event.getRawY() - initialTouchY);
 
                             //Calculate the X and Y coordinates of the view.
-                            params.x = initialX + xDiff;
-                            params.y = initialY + yDiff;
+                            params.x = initialX + xDiffMove;
+                            params.y = initialY + yDiffMove;
 
                             //Update the layout with new X & Y coordinates
                             mWindowManager.updateViewLayout(mOverlayView, params);
