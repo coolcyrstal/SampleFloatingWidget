@@ -1,12 +1,16 @@
 package com.example.chayent.samplefloatingwidget;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
+import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,6 +19,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -36,15 +41,29 @@ public class FloatingWidgetService extends Service {
     CounterFab mCounterFab;
     boolean mActivityBackground;
     private ImageView mImageViewClose;
-    private LinearLayout mLinearLayoutChatBox;
+    private FrameLayout mLinearLayoutChatBox;
     private LinearLayout mFloatingLayout;
     private Button mButtonCloseStream;
     private int mClickThreshold = 5;
 
+    // Binder given to clients
+    private final IBinder mBinder = new LocalBinder();
+
+    /**
+     * Class used for the client Binder.  Because we know this service always
+     * runs in the same process as its clients, we don't need to deal with IPC.
+     */
+    public class LocalBinder extends Binder {
+        FloatingWidgetService getService() {
+            // Return this instance of LocalService so clients can call public methods
+            return FloatingWidgetService.this;
+        }
+    }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return mBinder;
     }
 
     @Override
@@ -115,7 +134,7 @@ public class FloatingWidgetService extends Service {
 
             mFloatingLayout = mOverlayView.findViewById(R.id.floating_layout);
             mLinearLayoutChatBox = mOverlayView.findViewById(R.id.chat_box);
-            mButtonCloseStream = mOverlayView.findViewById(R.id.stream_close_button);
+//            mButtonCloseStream = mOverlayView.findViewById(R.id.stream_close_button);
 
             final LinearLayout layout = mOverlayView.findViewById(R.id.layout);
             ViewTreeObserver vto = layout.getViewTreeObserver();
@@ -131,12 +150,12 @@ public class FloatingWidgetService extends Service {
                 }
             });
 
-            mButtonCloseStream.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    stopSelf();
-                }
-            });
+//            mButtonCloseStream.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    stopSelf();
+//                }
+//            });
 
 //            mCounterFab.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -243,5 +262,12 @@ public class FloatingWidgetService extends Service {
         }
 
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    private void replaceChatFragment(){
+        FragmentTransaction fragmentTransaction = ((AppCompatActivity)getApplicationContext()).getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        fragmentTransaction.replace(R.id.chat_box, new ChatPageFragment(), "Chat Page");
+        fragmentTransaction.commitAllowingStateLoss();
     }
 }

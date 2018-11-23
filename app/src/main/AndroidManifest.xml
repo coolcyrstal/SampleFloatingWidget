@@ -24,6 +24,8 @@
             android:name=".FloatingWidgetService"
             android:enabled="true"
             android:exported="false" />
+
+        <activity android:name=".ChatActivity"></activity>
     </application>
 
 </manifest>
