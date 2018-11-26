@@ -7,6 +7,7 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -24,6 +25,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onStart();
         Intent intent = new Intent(this, FloatingWidgetService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        startService(new Intent(ChatActivity.this, FloatingWidgetService.class));
     }
 
     @Override
@@ -42,11 +44,13 @@ public class ChatActivity extends AppCompatActivity {
             FloatingWidgetService.LocalBinder binder = (FloatingWidgetService.LocalBinder) service;
             mService = binder.getService();
             mBound = true;
+            Toast.makeText(getApplicationContext(), "connected", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
             mBound = false;
+            Toast.makeText(getApplicationContext(), "Disconnected", Toast.LENGTH_SHORT).show();
         }
     };
 }

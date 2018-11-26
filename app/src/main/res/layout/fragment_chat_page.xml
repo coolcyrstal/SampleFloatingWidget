@@ -18,6 +18,6 @@
             android:id="@+id/chat_page_gift"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:src="@drawable/gift_box"/>
+            android:src="@drawable/gift_box" />
     </LinearLayout>
 </FrameLayout>

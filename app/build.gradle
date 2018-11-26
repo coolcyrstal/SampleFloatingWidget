@@ -29,4 +29,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.github.andremion:counterfab:1.1.1'
     implementation 'org.jetbrains:annotations-java5:15.0'
+    implementation 'io.mattcarroll.hover:hover:0.9.8'
+    implementation 'de.greenrobot:eventbus:2.4.0'
 }

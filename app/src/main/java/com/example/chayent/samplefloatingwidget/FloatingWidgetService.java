@@ -1,7 +1,7 @@
 package com.example.chayent.samplefloatingwidget;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.Application;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -9,8 +9,7 @@ import android.graphics.Point;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -133,7 +132,7 @@ public class FloatingWidgetService extends Service {
             });
 
             mFloatingLayout = mOverlayView.findViewById(R.id.floating_layout);
-            mLinearLayoutChatBox = mOverlayView.findViewById(R.id.chat_box);
+            mLinearLayoutChatBox = mOverlayView.findViewById(R.id.chat_box_layout);
 //            mButtonCloseStream = mOverlayView.findViewById(R.id.stream_close_button);
 
             final LinearLayout layout = mOverlayView.findViewById(R.id.layout);
@@ -218,6 +217,8 @@ public class FloatingWidgetService extends Service {
                                     mImageViewClose.setVisibility(View.GONE);
                                     mLinearLayoutChatBox.setVisibility(View.VISIBLE);
                                     mWindowManager.updateViewLayout(mOverlayView, params);
+//                                    setView();
+//                                    LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(new Intent("EVENT_REPLACE_CHAT"));
                                 }
                             }
 //                            if (mActivityBackground) {
@@ -264,10 +265,7 @@ public class FloatingWidgetService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    private void replaceChatFragment(){
-        FragmentTransaction fragmentTransaction = ((AppCompatActivity)getApplicationContext()).getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-        fragmentTransaction.replace(R.id.chat_box, new ChatPageFragment(), "Chat Page");
-        fragmentTransaction.commitAllowingStateLoss();
+    private void setView(){
+        mLinearLayoutChatBox.addView(LayoutInflater.from(this).inflate(R.layout.fragment_chat_page, null));
     }
 }

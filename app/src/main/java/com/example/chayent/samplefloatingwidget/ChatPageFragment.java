@@ -8,9 +8,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 public class ChatPageFragment extends Fragment {
+
+
 
     public ChatPageFragment() {
         // Required empty public constructor
@@ -34,7 +37,12 @@ public class ChatPageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_chat_page, container, false);
+        setUpView();
         return rootView;
+    }
+
+    private void setUpView() {
+
     }
 
     @Override
