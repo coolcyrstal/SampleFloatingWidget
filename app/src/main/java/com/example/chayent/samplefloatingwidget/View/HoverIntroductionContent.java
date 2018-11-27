@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.chayent.samplefloatingwidget.HoverMotion;
 import com.example.chayent.samplefloatingwidget.theme.HoverTheme;
@@ -37,6 +38,12 @@ public class HoverIntroductionContent extends FrameLayout implements Content {
 
         mLogo = findViewById(R.id.chat_page_gift);
         mHoverMotion = new HoverMotion();
+        mLogo.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "on gift click", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -64,12 +71,12 @@ public class HoverIntroductionContent extends FrameLayout implements Content {
 
     @Override
     public void onShown() {
-        mHoverMotion.start(mLogo);
+
     }
 
     @Override
     public void onHidden() {
-        mHoverMotion.stop();
+
     }
 
     public void onEventMainThread(@NonNull HoverTheme newTheme) {
