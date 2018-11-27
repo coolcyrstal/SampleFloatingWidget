@@ -1,10 +1,14 @@
-package com.example.chayent.samplefloatingwidget;
+package com.example.chayent.samplefloatingwidget.service;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.ContextThemeWrapper;
 
+import com.example.chayent.samplefloatingwidget.Bus;
+import com.example.chayent.samplefloatingwidget.menu.ChatMenu;
+import com.example.chayent.samplefloatingwidget.menu.ChatMenuFactory;
+import com.example.chayent.samplefloatingwidget.R;
 import com.example.chayent.samplefloatingwidget.theme.HoverTheme;
 
 import java.io.IOException;
@@ -28,7 +32,7 @@ public class ChatMenuService extends HoverMenuService {
         context.startService(new Intent(context, ChatMenuService.class));
     }
 
-    private ChatMenu mDemoHoverMenu;
+    private ChatMenu mHoverMenu;
 
     @Override
     public void onCreate() {
@@ -55,15 +59,15 @@ public class ChatMenuService extends HoverMenuService {
 
     private HoverMenu createHoverMenu() {
         try {
-            mDemoHoverMenu = new HoverMenuFactory().createDemoMenuFromCode(getContextForHoverMenu(), Bus.getInstance());
+            mHoverMenu = new ChatMenuFactory().createMenuFromCode(getContextForHoverMenu(), Bus.getInstance());
 //            mDemoHoverMenuAdapter = new DemoHoverMenuFactory().createDemoMenuFromFile(getContextForHoverMenu());
-            return mDemoHoverMenu;
+            return mHoverMenu;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void onEventMainThread(@NonNull HoverTheme newTheme) {
-        mDemoHoverMenu.setTheme(newTheme);
+        mHoverMenu.setTheme(newTheme);
     }
 }

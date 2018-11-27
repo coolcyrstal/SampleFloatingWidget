@@ -182,8 +182,8 @@ public class AppStateTracker {
         for (int i = mActivityStates.size() - 1; i >= 0; --i) {
             activityState = mActivityStates.get(i);
             if (activityState.getActivityName().equals(activityName)) {
-                for (int j = 0; j < statesToFind.length; ++j) {
-                    if (statesToFind[j] == activityState.getState()) {
+                for (ActivityState.State aStatesToFind : statesToFind) {
+                    if (aStatesToFind == activityState.getState()) {
                         return i;
                     }
                 }
@@ -197,8 +197,8 @@ public class AppStateTracker {
         for (int i = 0; i < mActivityStates.size(); ++i) {
             activityState = mActivityStates.get(i);
             if (activityState.getActivityName().equals(activityName)) {
-                for (int j = 0; j < statesToFind.length; ++j) {
-                    if (statesToFind[j] == activityState.getState()) {
+                for (ActivityState.State aStatesToFind : statesToFind) {
+                    if (aStatesToFind == activityState.getState()) {
                         return i;
                     }
                 }

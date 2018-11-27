@@ -59,20 +59,18 @@ public class ChatTabView extends View {
             mIconDrawable.setColorFilter(mForegroundColor, PorterDuff.Mode.SRC_ATOP);
         }
         updateIconBounds();
-
         invalidate();
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
+    protected void onSizeChanged(int width, int height, int previousWidth, int previousHeight) {
+        super.onSizeChanged(width, height, previousWidth, previousHeight);
 
         // Make circle as large as View minus padding.
-        mCircleDrawable.setBounds(getPaddingLeft(), getPaddingTop(), w - getPaddingRight(), h - getPaddingBottom());
+        mCircleDrawable.setBounds(getPaddingLeft(), getPaddingTop(), width - getPaddingRight(), height - getPaddingBottom());
 
         // Re-size the icon as necessary.
         updateIconBounds();
-
         invalidate();
     }
 

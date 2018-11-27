@@ -27,9 +27,8 @@
             android:name=".FloatingWidgetService"
             android:enabled="true"
             android:exported="false" />
-        <service android:name=".ChatMenuService"/>
+        <service android:name=".service.ChatMenuService"/>
 
-        <activity android:name=".ChatActivity"></activity>
     </application>
 
 </manifest>

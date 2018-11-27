@@ -5,9 +5,10 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.chayent.samplefloatingwidget.HoverMotion;
+import com.example.chayent.samplefloatingwidget.controller.HoverMotion;
 import com.example.chayent.samplefloatingwidget.theme.HoverTheme;
 import com.example.chayent.samplefloatingwidget.R;
 
@@ -21,13 +22,13 @@ import io.mattcarroll.hover.Content;
  * Created by Chayen Tansritrang on 11/26/2018.
  * Copyright © Electronics Extreme Ltd. All rights reserved.
  */
-public class HoverIntroductionContent extends FrameLayout implements Content {
+public class ChatMainContent extends FrameLayout implements Content {
 
     private final EventBus mBus;
-    private View mLogo;
+    private ImageView mLogo;
     private HoverMotion mHoverMotion;
 
-    public HoverIntroductionContent(@NonNull Context context, @NonNull EventBus bus) {
+    public ChatMainContent(@NonNull Context context, @NonNull EventBus bus) {
         super(context);
         mBus = bus;
         init();

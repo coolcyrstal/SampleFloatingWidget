@@ -1,4 +1,4 @@
-package com.example.chayent.samplefloatingwidget;
+package com.example.chayent.samplefloatingwidget.controller;
 
 import android.graphics.PointF;
 import android.os.Build;
@@ -84,10 +84,10 @@ public class HoverMotion {
         private static final float FRICTION = 0.8f;
 
         private int mMaxDisplacementInPixels = 200;
-        private PointF mPosition = new PointF(0, 0);
+        private PointF mPosition = new PointF(0, 200);
         private PointF mVelocity = new PointF(0, 0);
 
-        public PointF applyMotion(int dtInMillis) {
+        PointF applyMotion(int dtInMillis) {
             float xConstraintAdditive = mPosition.x / mMaxDisplacementInPixels;
             float yConstraintAdditive = mPosition.y / mMaxDisplacementInPixels;
 
@@ -114,11 +114,11 @@ public class HoverMotion {
         private int mLastTimeInMillis;
         private float mGrowthFactor;
 
-        public GrowAndShrinkGenerator(float growthFactor) {
+        GrowAndShrinkGenerator(float growthFactor) {
             mGrowthFactor = growthFactor;
         }
 
-        public float applyGrowth(int dtInMillis) {
+        float applyGrowth(int dtInMillis) {
             mLastTimeInMillis += dtInMillis;
             return 1.0f + (float) (Math.sin(Math.PI * ((float) mLastTimeInMillis / GROWTH_CYCLE_IN_MILLIS)) * mGrowthFactor);
         }

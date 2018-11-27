@@ -16,14 +16,14 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chayent.samplefloatingwidget.service.ChatMenuService;
+
 import io.mattcarroll.hover.HoverView;
 import io.mattcarroll.hover.overlay.OverlayPermission;
-import io.mattcarroll.hover.window.WindowViewController;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.chayent.samplefloatingwidget;
+package com.example.chayent.samplefloatingwidget.menu;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.util.TypedValue;
 import android.view.View;
 
+import com.example.chayent.samplefloatingwidget.R;
 import com.example.chayent.samplefloatingwidget.View.ChatTabView;
 import com.example.chayent.samplefloatingwidget.theme.HoverTheme;
 
@@ -41,10 +42,10 @@ public class ChatMenu extends HoverMenu {
     private HoverTheme mTheme;
     private final List<Section> mSections = new ArrayList<>();
 
-    public ChatMenu(@NonNull Context context,
-                    @NonNull String menuId,
-                    @NonNull Map<String, Content> data,
-                    @NonNull HoverTheme theme) throws IOException {
+    ChatMenu(@NonNull Context context,
+             @NonNull String menuId,
+             @NonNull Map<String, Content> data,
+             @NonNull HoverTheme theme) throws IOException {
         mContext = context;
         mMenuId = menuId;
         mTheme = theme;
