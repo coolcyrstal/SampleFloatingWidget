@@ -8,9 +8,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.chayent.samplefloatingwidget.R;
 import com.example.chayent.samplefloatingwidget.controller.HoverMotion;
 import com.example.chayent.samplefloatingwidget.theme.HoverTheme;
-import com.example.chayent.samplefloatingwidget.R;
 
 import de.greenrobot.event.EventBus;
 import io.mattcarroll.hover.Content;

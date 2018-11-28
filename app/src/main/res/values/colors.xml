@@ -4,5 +4,5 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="hover_accent">#ff9600</color>
-    <color name="hover_base">#212121</color>
+    <color name="hover_base">#AA121212</color>
 </resources>
