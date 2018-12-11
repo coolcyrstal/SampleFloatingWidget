@@ -12,7 +12,7 @@ import com.example.chayent.samplefloatingwidget.theme.HoverThemeManager;
 /**
  * App.java
  * SampleFloatingWidget
- * <p>
+ *
  * Created by Chayen Tansritrang on 11/27/2018.
  * Copyright © Electronics Extreme Ltd. All rights reserved.
  */

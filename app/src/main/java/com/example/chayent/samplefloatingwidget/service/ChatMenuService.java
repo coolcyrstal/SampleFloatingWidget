@@ -20,7 +20,7 @@ import io.mattcarroll.hover.window.HoverMenuService;
 /**
  * ChatMenuService.java
  * SampleFloatingWidget
- * <p>
+ *
  * Created by Chayen Tansritrang on 11/26/2018.
  * Copyright © Electronics Extreme Ltd. All rights reserved.
  */
