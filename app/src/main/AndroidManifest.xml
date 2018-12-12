@@ -15,6 +15,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup"
         android:name=".App">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,8 +28,7 @@
             android:name=".FloatingWidgetService"
             android:enabled="true"
             android:exported="false" />
-        <service android:name=".service.ChatMenuService"/>
-
+        <service android:name=".service.ChatMenuService" />
     </application>
 
 </manifest>

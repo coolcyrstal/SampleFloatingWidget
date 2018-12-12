@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
@@ -32,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextView;
     FloatingWidgetService mService;
     boolean mBound = false;
-    private HoverView mHoverView;
 
     private boolean mPermissionsRequested = false;
 
@@ -44,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    /** Defines callbacks for service binding, passed to bindService() */
+    /**
+     * Defines callbacks for service binding, passed to bindService()
+     */
     private ServiceConnection mConnection = new ServiceConnection() {
 
         @Override
@@ -72,11 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
         mButton = (Button) findViewById(R.id.button);
         mTextView = (TextView) findViewById(R.id.textView);
-//        mHoverView = findViewById(R.id.hovermenu);
-//
-//        mHoverView = HoverView.createForWindow(getApplicationContext(), new WindowViewController((WindowManager)getSystemService(Context.WINDOW_SERVICE)));
-
-
 
         int badge_count = getIntent().getIntExtra("badge_count", 0);
         mTextView.setText(badge_count + " messages received previously");
@@ -175,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Draw over other app permission not available. Can't start the application without the permission.", Toast.LENGTH_LONG).show();
     }
 
-    private void replaceChatFragment(){
+    private void replaceChatFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         fragmentTransaction.replace(R.id.chat_box_layout, new ChatPageFragment(), "Chat Page");

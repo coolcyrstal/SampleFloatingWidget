@@ -5,4 +5,11 @@
     <color name="colorAccent">#D81B60</color>
     <color name="hover_accent">#ff9600</color>
     <color name="hover_base">#AA121212</color>
+
+    <color name="colorLivePrimaryTransparent">#76273B4D</color>
+    <color name="colorLivePrimary">#273B4D</color>
+    <color name="colorLivePrimaryDark">#182A3B</color>
+    <color name="colorLiveTextTitle">#ffffff</color>
+    <color name="colorLiveTextContent">#8Affffff</color>
+    <color name="colorLiveTextHint">#1Fffffff</color>
 </resources>
