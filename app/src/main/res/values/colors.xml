@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#01bcd4</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="hover_accent">#ff9600</color>
     <color name="hover_base">#AA121212</color>
 
     <color name="colorLivePrimaryTransparent">#76273B4D</color>
+    <color name="colorLivePrimaryDarkTransparent">#E6182A3B</color>
     <color name="colorLivePrimary">#273B4D</color>
     <color name="colorLivePrimaryDark">#182A3B</color>
     <color name="colorLiveTextTitle">#ffffff</color>
     <color name="colorLiveTextContent">#8Affffff</color>
     <color name="colorLiveTextHint">#1Fffffff</color>
+
+    <color name="colorRed">#FF0000</color>
+    <color name="colorLiveRed">#ffff5d5d</color>
 </resources>

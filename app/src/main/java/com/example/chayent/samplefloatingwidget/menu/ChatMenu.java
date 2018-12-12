@@ -67,7 +67,7 @@ public class ChatMenu extends HoverMenu {
 
     private View createTabView(String sectionId) {
         if (INTRO_ID.equals(sectionId)) {
-            return createTabView(R.drawable.ic_action_name, mTheme.getAccentColor(), null);
+            return createTabView(R.drawable.widjet_live, mTheme.getAccentColor(), null);
         }
 //        else if (SELECT_COLOR_ID.equals(sectionId)) {
 //            return createTabView(R.drawable.ic_paintbrush, mTheme.getAccentColor(), mTheme.getBaseColor());
@@ -87,7 +87,7 @@ public class ChatMenu extends HoverMenu {
         Resources resources = mContext.getResources();
         int elevation = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, resources.getDisplayMetrics());
 
-        ChatTabView view = new ChatTabView(mContext, resources.getDrawable(R.drawable.tab_background), resources.getDrawable(tabBitmapRes));
+        ChatTabView view = new ChatTabView(mContext, resources.getDrawable(R.drawable.widjet_live), resources.getDrawable(tabBitmapRes));
         view.setTabBackgroundColor(backgroundColor);
         view.setTabForegroundColor(iconColor);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

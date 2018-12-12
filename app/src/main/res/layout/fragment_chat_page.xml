@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorLivePrimaryDarkTransparent"
     android:orientation="vertical"
-    android:background="@color/colorLivePrimaryTransparent"
     tools:context=".ChatPageFragment">
 
     <LinearLayout
@@ -12,15 +12,56 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorLivePrimaryDark"
-        android:padding="8dp"
-        android:orientation="horizontal">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="@dimen/image_size_20"
+            android:layout_height="@dimen/image_size_20"
+            android:layout_marginStart="@dimen/view_spacing_64"
+            android:src="@drawable/ic_view" />
+
+        <TextView
+            android:id="@+id/chat_page_view_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/view_spacing_8"
+            android:text="12424"
+            android:textColor="@color/colorLiveTextTitle" />
+
+        <ImageView
+            android:layout_width="@dimen/image_size_20"
+            android:layout_height="@dimen/image_size_20"
+            android:layout_marginStart="@dimen/view_spacing_16"
+            android:src="@drawable/ic_gift" />
+
+        <TextView
+            android:id="@+id/chat_page_like_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/view_spacing_8"
+            android:text="104"
+            android:textColor="@color/colorLiveTextTitle" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="@dimen/image_size_12"
+            android:layout_height="@dimen/image_size_12"
+            android:src="@drawable/dot_live_record" />
 
         <TextView
             android:id="@+id/chat_page_time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="222"
-            android:textColor="@color/colorLiveTextTitle"/>
+            android:layout_marginStart="@dimen/view_spacing_8"
+            android:layout_marginEnd="@dimen/view_spacing_8"
+            android:text="01:25:45"
+            android:textColor="@color/colorLiveTextTitle" />
     </LinearLayout>
 
     <LinearLayout
@@ -33,53 +74,74 @@
             android:id="@+id/chat_page_gift_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="start"
             android:background="@color/colorLivePrimaryDark"
-            android:padding="16dp"
             android:orientation="vertical"
-            android:layout_gravity="start">
+            android:padding="@dimen/view_spacing_16">
 
             <ImageView
                 android:id="@+id/chat_page_chat"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginBottom="16dp"
-                android:src="@drawable/ic_gift" />
+                android:layout_width="@dimen/image_size_30"
+                android:layout_height="@dimen/image_size_30"
+                android:layout_marginBottom="@dimen/view_spacing_16"
+                android:src="@drawable/ic_textcomment"
+                android:tint="@color/colorPrimary"/>
 
             <ImageView
                 android:id="@+id/chat_page_gift"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/image_size_30"
+                android:layout_height="@dimen/image_size_30"
                 android:src="@drawable/ic_gift" />
         </LinearLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/chat_page_chat_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
 
-        </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/chat_page_send_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorLivePrimaryDark"
         android:layout_gravity="bottom"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:orientation="horizontal">
+        android:background="@color/colorLivePrimaryDark"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/view_spacing_8"
+        android:paddingTop="@dimen/view_spacing_16"
+        android:paddingEnd="@dimen/view_spacing_8"
+        android:paddingBottom="@dimen/view_spacing_16">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_gift"/>
+            android:layout_width="@dimen/image_size_30"
+            android:layout_height="@dimen/image_size_30"
+            android:layout_marginStart="@dimen/view_spacing_8"
+            android:src="@drawable/ic_emotion" />
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/view_spacing_16"
+            android:background="@color/colorLivePrimary"
+            android:layout_weight="1">
 
+            <EditText
+                android:id="@+id/chat_page_chat_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:maxLines="1"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="@dimen/image_size_30"
+            android:layout_height="@dimen/image_size_30"
+            android:layout_marginStart="@dimen/view_spacing_16"
+            android:layout_marginEnd="@dimen/view_spacing_8"
+            android:src="@drawable/ic_sent"
+            android:tint="@color/colorPrimary"/>
     </LinearLayout>
 </LinearLayout>

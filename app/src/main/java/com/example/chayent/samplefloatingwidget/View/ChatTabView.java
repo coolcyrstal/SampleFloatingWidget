@@ -67,7 +67,7 @@ public class ChatTabView extends View {
         super.onSizeChanged(width, height, previousWidth, previousHeight);
 
         // Make circle as large as View minus padding.
-        mCircleDrawable.setBounds(getPaddingLeft(), getPaddingTop(), width - getPaddingRight(), height - getPaddingBottom());
+        mCircleDrawable.setBounds(getPaddingLeft(), getPaddingTop(), width, height);
 
         // Re-size the icon as necessary.
         updateIconBounds();
@@ -77,7 +77,7 @@ public class ChatTabView extends View {
     private void updateIconBounds() {
         if (null != mIconDrawable) {
             Rect bounds = new Rect(mCircleDrawable.getBounds());
-            bounds.set(bounds.left + mIconInsetLeft, bounds.top + mIconInsetTop, bounds.right - mIconInsetRight, bounds.bottom - mIconInsetBottom);
+            bounds.set(bounds.left, bounds.top, bounds.right, bounds.bottom);
             mIconDrawable.setBounds(bounds);
         }
     }
