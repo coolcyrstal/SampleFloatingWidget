@@ -12,6 +12,8 @@ import com.example.chayent.samplefloatingwidget.R;
 import com.example.chayent.samplefloatingwidget.controller.HoverMotion;
 import com.example.chayent.samplefloatingwidget.theme.HoverTheme;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 import io.mattcarroll.hover.Content;
 
@@ -24,25 +26,48 @@ import io.mattcarroll.hover.Content;
  */
 public class ChatMainContent extends FrameLayout implements Content {
 
+    @BindView(R.id.chat_page_gift)
+    ImageView mGiftImageView;
+    @BindView(R.id.chat_page_chat)
+    ImageView mChatImageView;
+    @BindView(R.id.chat_page_chat_item_layout)
+    FrameLayout mFrameLayoutChat;
+    @BindView(R.id.chat_page_gift_item_layout)
+    FrameLayout mFrameLayoutGift;
+
     private final EventBus mBus;
-    private ImageView mLogo;
     private HoverMotion mHoverMotion;
 
     public ChatMainContent(@NonNull Context context, @NonNull EventBus bus) {
         super(context);
         mBus = bus;
-        init();
+        setUpView();
     }
 
-    private void init() {
+    private void setUpView() {
         LayoutInflater.from(getContext()).inflate(R.layout.fragment_chat_page, this, true);
+        ButterKnife.bind(this);
 
-        mLogo = findViewById(R.id.chat_page_gift);
         mHoverMotion = new HoverMotion();
-        mLogo.setOnClickListener(new OnClickListener() {
+
+        mGiftImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "on gift click", Toast.LENGTH_SHORT).show();
+                mFrameLayoutGift.setBackground(getResources().getDrawable(R.drawable.shape_circle));
+                mFrameLayoutChat.setBackground(null);
+                mGiftImageView.setColorFilter(getResources().getColor(R.color.colorPrimary));
+                mChatImageView.setColorFilter(getResources().getColor(R.color.colorLiveTextTitle));
+            }
+        });
+
+        mChatImageView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFrameLayoutChat.setBackground(getResources().getDrawable(R.drawable.shape_circle));
+                mFrameLayoutGift.setBackground(null);
+                mGiftImageView.setColorFilter(getResources().getColor(R.color.colorLiveTextTitle));
+                mChatImageView.setColorFilter(getResources().getColor(R.color.colorPrimary));
             }
         });
     }

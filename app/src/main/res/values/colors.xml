@@ -16,4 +16,6 @@
 
     <color name="colorRed">#FF0000</color>
     <color name="colorLiveRed">#ffff5d5d</color>
+
+    <color name="color_black_border">#61000000</color>
 </resources>

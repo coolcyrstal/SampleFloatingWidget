@@ -5,9 +5,10 @@
     <dimen name="image_size_16">16dp</dimen>
     <dimen name="image_size_20">20dp</dimen>
     <dimen name="image_size_30">30dp</dimen>
+    <dimen name="image_size_40">48dp</dimen>
 
     <dimen name="view_spacing_8">8dp</dimen>
     <dimen name="view_spacing_12">12dp</dimen>
     <dimen name="view_spacing_16">16dp</dimen>
-    <dimen name="view_spacing_64">64dp</dimen>
+    <dimen name="view_spacing_72">72dp</dimen>
 </resources>

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.chayent.samplefloatingwidget"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -31,4 +31,6 @@ dependencies {
     implementation 'org.jetbrains:annotations-java5:15.0'
     implementation 'de.greenrobot:eventbus:2.4.0'
     implementation project(path: ':hover')
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
