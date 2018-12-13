@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     tools:context=".ChatPageFragment">
 
     <LinearLayout
@@ -119,6 +121,10 @@
             android:orientation="vertical">
 
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/chat_page_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </FrameLayout>
     </LinearLayout>
 
@@ -135,6 +141,7 @@
         android:paddingBottom="@dimen/view_spacing_12">
 
         <ImageView
+            android:id="@+id/chat_page_sticker"
             android:layout_width="@dimen/image_size_30"
             android:layout_height="@dimen/image_size_30"
             android:layout_gravity="center"

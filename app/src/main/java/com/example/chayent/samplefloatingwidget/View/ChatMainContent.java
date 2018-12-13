@@ -1,9 +1,15 @@
 package com.example.chayent.samplefloatingwidget.View;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -11,6 +17,8 @@ import android.widget.Toast;
 import com.example.chayent.samplefloatingwidget.R;
 import com.example.chayent.samplefloatingwidget.controller.HoverMotion;
 import com.example.chayent.samplefloatingwidget.theme.HoverTheme;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,20 +34,32 @@ import io.mattcarroll.hover.Content;
  */
 public class ChatMainContent extends FrameLayout implements Content {
 
-    @BindView(R.id.chat_page_gift)
-    ImageView mGiftImageView;
-    @BindView(R.id.chat_page_chat)
-    ImageView mChatImageView;
     @BindView(R.id.chat_page_chat_item_layout)
     FrameLayout mFrameLayoutChat;
     @BindView(R.id.chat_page_gift_item_layout)
     FrameLayout mFrameLayoutGift;
 
+    @BindView(R.id.chat_page_chat_edit_text)
+    EditText mEditText;
+    @BindView(R.id.chat_page_recycler_view)
+    RecyclerView mRecyclerView;
+
+    @BindView(R.id.chat_page_gift)
+    ImageView mGiftImageView;
+    @BindView(R.id.chat_page_chat)
+    ImageView mChatImageView;
+    @BindView(R.id.chat_page_send)
+    ImageView mImageViewSend;
+    @BindView(R.id.chat_page_sticker)
+    ImageView mImageViewSticker;
+
     private final EventBus mBus;
     private HoverMotion mHoverMotion;
+    private Context mContext;
 
     public ChatMainContent(@NonNull Context context, @NonNull EventBus bus) {
         super(context);
+        mContext = context;
         mBus = bus;
         setUpView();
     }
@@ -68,6 +88,32 @@ public class ChatMainContent extends FrameLayout implements Content {
                 mFrameLayoutGift.setBackground(null);
                 mGiftImageView.setColorFilter(getResources().getColor(R.color.colorLiveTextTitle));
                 mChatImageView.setColorFilter(getResources().getColor(R.color.colorPrimary));
+            }
+        });
+
+        mImageViewSend.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mEditText.getText().toString().equals("")) {
+                    Toast.makeText(getContext(), mEditText.getText().toString(), Toast.LENGTH_SHORT).show();
+                    mEditText.setText("");
+                }
+            }
+        });
+
+        mEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard();
+                }
+            }
+        });
+
+        mImageViewSticker.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                showAlert();
             }
         });
     }
@@ -107,5 +153,24 @@ public class ChatMainContent extends FrameLayout implements Content {
 
     public void onEventMainThread(@NonNull HoverTheme newTheme) {
 
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        if (inputMethodManager != null) {
+            inputMethodManager.hideSoftInputFromWindow(mEditText.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
+    private void showAlert() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+        dialog.setTitle("");
+        dialog.setMessage("test");
+        dialog.setNegativeButton("OK", null);
+        dialog.setCancelable(false);
+
+        AlertDialog alertDialog = dialog.create();
+        Objects.requireNonNull(alertDialog.getWindow()).setType(WindowManager.LayoutParams.TYPE_TOAST);
+        alertDialog.show();
     }
 }
