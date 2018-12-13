@@ -3,10 +3,14 @@ package com.example.chayent.samplefloatingwidget.View;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -113,7 +117,7 @@ public class ChatMainContent extends FrameLayout implements Content {
         mImageViewSticker.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-//                showAlert();
+                showAlert();
             }
         });
     }
@@ -163,14 +167,39 @@ public class ChatMainContent extends FrameLayout implements Content {
     }
 
     private void showAlert() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-        dialog.setTitle("");
-        dialog.setMessage("test");
-        dialog.setNegativeButton("OK", null);
+        final AlertDialog dialog = new AlertDialog.Builder(mContext).create();
+        dialog.setMessage("set message");
+        dialog.setTitle("set title");
         dialog.setCancelable(false);
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-        AlertDialog alertDialog = dialog.create();
-        Objects.requireNonNull(alertDialog.getWindow()).setType(WindowManager.LayoutParams.TYPE_TOAST);
-        alertDialog.show();
+            }
+        });
+
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        final Window dialogWindow = dialog.getWindow();
+        final WindowManager.LayoutParams dialogWindowAttributes = dialogWindow.getAttributes();
+        final WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialogWindowAttributes);
+        lp.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 280, getResources().getDisplayMetrics());
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialogWindow.setAttributes(lp);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            dialogWindow.setType(WindowManager.LayoutParams.TYPE_TOAST);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            dialogWindow.setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            dialogWindow.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        }
+        dialog.show();
     }
 }

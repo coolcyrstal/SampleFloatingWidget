@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:clickable="true"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:context=".ChatPageFragment">
 
     <LinearLayout
@@ -78,8 +78,8 @@
             android:layout_gravity="start"
             android:background="@color/colorLivePrimaryDark"
             android:orientation="vertical"
-            android:paddingTop="@dimen/view_spacing_16"
             android:paddingStart="@dimen/view_spacing_12"
+            android:paddingTop="@dimen/view_spacing_16"
             android:paddingEnd="@dimen/view_spacing_12">
 
             <FrameLayout
@@ -124,7 +124,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/chat_page_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
         </FrameLayout>
     </LinearLayout>
 
