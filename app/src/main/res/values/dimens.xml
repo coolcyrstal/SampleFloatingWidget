@@ -7,6 +7,7 @@
     <dimen name="image_size_30">30dp</dimen>
 
     <dimen name="view_spacing_8">8dp</dimen>
+    <dimen name="view_spacing_12">12dp</dimen>
     <dimen name="view_spacing_16">16dp</dimen>
     <dimen name="view_spacing_64">64dp</dimen>
 </resources>

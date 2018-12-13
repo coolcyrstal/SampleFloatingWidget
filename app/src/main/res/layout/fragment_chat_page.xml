@@ -3,15 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLivePrimaryDarkTransparent"
     android:orientation="vertical"
     tools:context=".ChatPageFragment">
 
     <LinearLayout
-        android:id="@+id/chat_page_text_layout"
+        android:id="@+id/chat_page_top_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorLivePrimaryDark"
+        android:background="@drawable/shape_border_top_radius"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="8dp">
@@ -68,6 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@color/colorLivePrimaryDarkTransparent"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -85,7 +85,7 @@
                 android:layout_height="@dimen/image_size_30"
                 android:layout_marginBottom="@dimen/view_spacing_16"
                 android:src="@drawable/ic_textcomment"
-                android:tint="@color/colorPrimary"/>
+                android:tint="@color/colorPrimary" />
 
             <ImageView
                 android:id="@+id/chat_page_gift"
@@ -105,43 +105,45 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/chat_page_send_layout"
+        android:id="@+id/chat_page_bottom_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_gravity="bottom"
-        android:background="@color/colorLivePrimaryDark"
+        android:background="@drawable/shape_top_border"
         android:orientation="horizontal"
         android:paddingStart="@dimen/view_spacing_8"
-        android:paddingTop="@dimen/view_spacing_16"
+        android:paddingTop="@dimen/view_spacing_12"
         android:paddingEnd="@dimen/view_spacing_8"
-        android:paddingBottom="@dimen/view_spacing_16">
+        android:paddingBottom="@dimen/view_spacing_12">
 
         <ImageView
             android:layout_width="@dimen/image_size_30"
             android:layout_height="@dimen/image_size_30"
+            android:layout_gravity="center"
             android:layout_marginStart="@dimen/view_spacing_8"
             android:src="@drawable/ic_emotion" />
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/chat_page_chat_edit_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/view_spacing_16"
-            android:background="@color/colorLivePrimary"
-            android:layout_weight="1">
-
-            <EditText
-                android:id="@+id/chat_page_chat_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:maxLines="1"/>
-        </LinearLayout>
+            android:layout_weight="1"
+            android:background="@drawable/shape_chat_edit_text"
+            android:hint="@string/chat_text_hint"
+            android:maxLines="1"
+            android:paddingStart="@dimen/view_spacing_16"
+            android:paddingEnd="0dp"
+            android:textColorHint="@color/colorLiveTextHint" />
 
         <ImageView
+            android:id="@+id/chat_page_send"
             android:layout_width="@dimen/image_size_30"
             android:layout_height="@dimen/image_size_30"
+            android:layout_gravity="center"
             android:layout_marginStart="@dimen/view_spacing_16"
             android:layout_marginEnd="@dimen/view_spacing_8"
             android:src="@drawable/ic_sent"
-            android:tint="@color/colorPrimary"/>
+            android:tint="@color/colorPrimary" />
     </LinearLayout>
 </LinearLayout>
