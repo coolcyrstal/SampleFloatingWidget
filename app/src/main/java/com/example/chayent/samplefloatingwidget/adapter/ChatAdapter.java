@@ -68,7 +68,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView mTextViewTime;
 
 
-        public ChatViewHolder(View itemView) {
+        ChatViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

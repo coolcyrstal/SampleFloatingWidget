@@ -114,18 +114,10 @@
             </FrameLayout>
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/chat_page_chat_layout"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/chat_page_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/chat_page_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </FrameLayout>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
     <LinearLayout

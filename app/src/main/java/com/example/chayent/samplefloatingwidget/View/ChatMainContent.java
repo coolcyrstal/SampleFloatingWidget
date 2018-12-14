@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -19,9 +21,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.chayent.samplefloatingwidget.R;
+import com.example.chayent.samplefloatingwidget.adapter.ChatAdapter;
 import com.example.chayent.samplefloatingwidget.controller.HoverMotion;
+import com.example.chayent.samplefloatingwidget.model.ChatModel;
 import com.example.chayent.samplefloatingwidget.theme.HoverTheme;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -60,6 +65,8 @@ public class ChatMainContent extends FrameLayout implements Content {
     private final EventBus mBus;
     private HoverMotion mHoverMotion;
     private Context mContext;
+    private ArrayList<ChatModel> mChatModelArrayList = new ArrayList<>();
+    private ChatAdapter mChatAdapter;
 
     public ChatMainContent(@NonNull Context context, @NonNull EventBus bus) {
         super(context);
@@ -99,7 +106,7 @@ public class ChatMainContent extends FrameLayout implements Content {
             @Override
             public void onClick(View v) {
                 if (!mEditText.getText().toString().equals("")) {
-                    Toast.makeText(getContext(), mEditText.getText().toString(), Toast.LENGTH_SHORT).show();
+                    addChatData(mEditText.getText().toString());
                     mEditText.setText("");
                 }
             }
@@ -120,6 +127,14 @@ public class ChatMainContent extends FrameLayout implements Content {
                 showAlert();
             }
         });
+
+        mChatAdapter = new ChatAdapter(getContext(), mChatModelArrayList);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mChatAdapter);
+
+        loadData();
     }
 
     @Override
@@ -157,6 +172,18 @@ public class ChatMainContent extends FrameLayout implements Content {
 
     public void onEventMainThread(@NonNull HoverTheme newTheme) {
 
+    }
+
+    private void loadData(){
+
+    }
+
+    private void addChatData(String chatData){
+        ChatModel chatModel = new ChatModel();
+        chatModel.setChatText(chatData);
+        chatModel.setUsername("test");
+        mChatModelArrayList.add(chatModel);
+        mChatAdapter.notifyItemChanged(mChatModelArrayList.size());
     }
 
     private void hideKeyboard() {
