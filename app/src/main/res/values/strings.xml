@@ -5,4 +5,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="chat_text_hint">Say something…</string>
+    <string name="chat_text_user_indent">:\u0020\u0020</string>
 </resources>

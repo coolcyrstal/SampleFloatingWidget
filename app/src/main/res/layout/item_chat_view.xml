@@ -10,34 +10,43 @@
         android:layout_width="@dimen/image_size_36"
         android:layout_height="@dimen/image_size_36"
         android:layout_marginEnd="@dimen/view_spacing_16"
-        android:src="@drawable/ic_action_name" />
+        android:src="@drawable/ic_gift" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_chat_border"
-        android:orientation="horizontal"
-        android:padding="@dimen/view_spacing_12">
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/shape_chat_border"
+            android:orientation="horizontal"
+            android:padding="@dimen/view_spacing_12">
+
+            <TextView
+                android:id="@+id/item_chat_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username: "
+                android:textStyle="bold"
+                android:textColor="@color/color_white_70"/>
+
+            <TextView
+                android:id="@+id/item_chat_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chat_text_hint"
+                android:textColor="@color/colorLiveTextTitle"/>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/item_chat_user_name"
+            android:id="@+id/item_chat_time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username: "
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/item_chat_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/chat_text_hint" />
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/view_spacing_16"
+            android:text="14.25"
+            android:textColor="@color/color_white_70"/>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/item_chat_time_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="@dimen/view_spacing_16"
-        android:text="14.25" />
 </LinearLayout>

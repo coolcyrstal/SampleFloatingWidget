@@ -130,6 +130,7 @@ public class ChatMainContent extends FrameLayout implements Content {
 
         mChatAdapter = new ChatAdapter(getContext(), mChatModelArrayList);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+//        mLayoutManager.setReverseLayout(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mChatAdapter);

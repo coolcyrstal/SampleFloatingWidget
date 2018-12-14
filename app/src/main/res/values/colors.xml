@@ -6,7 +6,7 @@
     <color name="hover_accent">#ff9600</color>
     <color name="hover_base">#AA121212</color>
 
-    <color name="colorLivePrimaryTransparent">#76273B4D</color>
+    <color name="colorLivePrimaryTransparent">#4C273B4D</color>
     <color name="colorLivePrimaryDarkTransparent">#E6182A3B</color>
     <color name="colorLivePrimary">#273B4D</color>
     <color name="colorLivePrimaryDark">#182A3B</color>
@@ -18,4 +18,6 @@
     <color name="colorLiveRed">#ffff5d5d</color>
 
     <color name="color_black_border">#61000000</color>
+    <color name="color_white_30">#4Cffffff</color>
+    <color name="color_white_70">#B3ffffff</color>
 </resources>

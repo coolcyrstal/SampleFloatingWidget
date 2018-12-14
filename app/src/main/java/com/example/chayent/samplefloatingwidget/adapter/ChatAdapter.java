@@ -46,7 +46,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ChatModel chatModel = mChatModelArrayList.get(position);
         if(chatModel != null){
-            ((ChatViewHolder)holder).mTextViewUsername.setText(chatModel.getUsername());
+            ((ChatViewHolder)holder).mTextViewUsername.setText(chatModel.getUsername().concat(mContext.getString(R.string.chat_text_user_indent)));
             ((ChatViewHolder)holder).mTextViewChat.setText(chatModel.getChatText());
         }
     }
