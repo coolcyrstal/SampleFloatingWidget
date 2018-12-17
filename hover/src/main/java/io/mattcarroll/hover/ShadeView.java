@@ -20,9 +20,14 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 /**
  * Fullscreen {@code View} that appears behind the other visual elements in a {@link HoverView} and
@@ -30,19 +35,48 @@ import android.widget.FrameLayout;
  */
 class ShadeView extends FrameLayout {
 
+    private Button mButtonStop;
+    private ImageView mImageViewMicrophone;
+    private Context mContext;
+
     private static final int FADE_DURATION = 250;
+    private boolean isMute = false;
 
     public ShadeView(@NonNull Context context) {
         this(context, null);
+        mContext = context;
     }
 
     public ShadeView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        mContext = context;
         init();
     }
 
     private void init() {
         LayoutInflater.from(getContext()).inflate(R.layout.view_shade, this, true);
+
+        mButtonStop = findViewById(R.id.item_stop_live);
+        mButtonStop.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "test", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mImageViewMicrophone = findViewById(R.id.item_microphone);
+        mImageViewMicrophone.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isMute){
+                    mImageViewMicrophone.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.microphone_active));
+                    isMute = false;
+                }else {
+                    mImageViewMicrophone.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.microphone_mute));
+                    isMute = true;
+                }
+            }
+        });
     }
 
     public void show() {

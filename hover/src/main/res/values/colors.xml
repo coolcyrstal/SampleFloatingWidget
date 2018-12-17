@@ -8,4 +8,7 @@
     <color name="hover_content_menu_divider_color">#CCCCCC</color>
     <color name="hover_content_menu_title_color">#AAAAAA</color>
     <color name="hover_content_menu_item_title_color">#666666</color>
+
+    <color name="stop_button_red">#ffff5d5d</color>
+    <color name="colorWhite">#FFFFFF</color>
 </resources>

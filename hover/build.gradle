@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'checkstyle'
+//apply plugin: 'checkstyle'
 
 version = '0.9.8'
 
@@ -67,22 +67,22 @@ afterEvaluate {
 tasks.withType(Javadoc).all { enabled = false }
 
 //------ Checkstyle -------
-task checkstyle(type: Checkstyle) {
-    showViolations = true
-    configFile file("../config/checkstyle.xml")
-
-    source 'src/main/java'
-    include '**/*.java'
-    exclude '**/gen/**'
-    exclude '**/R.java'
-    exclude '**/BuildConfig.java'
-
-    // empty classpath
-    classpath = files()
-}
+//task checkstyle(type: Checkstyle) {
+//    showViolations = true
+//    configFile file("../config/checkstyle.xml")
+//
+//    source 'src/main/java'
+//    include '**/*.java'
+//    exclude '**/gen/**'
+//    exclude '**/R.java'
+//    exclude '**/BuildConfig.java'
+//
+//    // empty classpath
+//    classpath = files()
+//}
 
 project.afterEvaluate {
-    preBuild.dependsOn('checkstyle')
+//    preBuild.dependsOn('checkstyle')
     assemble.dependsOn('lint')
-    check.dependsOn('checkstyle')
+//    check.dependsOn('checkstyle')
 }
