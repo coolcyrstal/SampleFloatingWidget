@@ -273,6 +273,7 @@ class HoverViewStateExpanded extends BaseHoverViewState {
         mTabsToUnchainCount = mChainedTabs.size() - 1; // -1 for selected tab
         for (int i = 0; i < mChainedTabs.size(); ++i) {
             final FloatingTab chainedTab = mChainedTabs.get(i);
+            chainedTab.setOnClickListener(null);
             final TabChain tabChain = mTabChains.get(i);
 
             if (mSelectedTab != chainedTab) {

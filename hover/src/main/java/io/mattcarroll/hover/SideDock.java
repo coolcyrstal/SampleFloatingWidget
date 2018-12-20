@@ -85,6 +85,12 @@ public class SideDock extends Dock {
 
             int y = (int) (screenSize.y * mVerticalDockPositionPercentage);
 
+            // Prevent the dock from sitting completely above or below the screen area.
+            int minY = (int) (tabSize * 0.25);
+            int maxY = (int) (screenSize.y - (tabSize * 0.25));
+            y = Math.max(y, minY);
+            y = Math.min(y, maxY);
+
             return new Point(x, y);
         }
 
