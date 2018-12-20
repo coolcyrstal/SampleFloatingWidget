@@ -126,6 +126,15 @@ public class InWindowDragger implements Dragger {
         }
     }
 
+    @Override
+    public void moveTo(@NonNull Point position) {
+        if (mIsActivated) {
+            mWindowViewController.moveViewTo(mDragView,
+                    position.x - (mTouchAreaDiameter / 2),
+                    position.y - (mTouchAreaDiameter / 2));
+        }
+    }
+
     public void deactivate() {
         if (mIsActivated) {
             Log.d(TAG, "Deactivating.");
