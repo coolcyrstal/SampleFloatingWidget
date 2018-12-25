@@ -24,6 +24,7 @@ import com.example.chayent.samplefloatingwidget.R;
 import com.example.chayent.samplefloatingwidget.adapter.ChatAdapter;
 import com.example.chayent.samplefloatingwidget.controller.HoverMotion;
 import com.example.chayent.samplefloatingwidget.model.ChatModel;
+import com.example.chayent.samplefloatingwidget.model.GiftModel;
 import com.example.chayent.samplefloatingwidget.theme.HoverTheme;
 
 import java.util.ArrayList;
@@ -52,6 +53,8 @@ public class ChatMainContent extends FrameLayout implements Content {
     EditText mEditText;
     @BindView(R.id.chat_page_recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.chat_page_gift_keyboard)
+    GiftView mGiftView;
 
     @BindView(R.id.chat_page_gift)
     ImageView mGiftImageView;
@@ -67,6 +70,9 @@ public class ChatMainContent extends FrameLayout implements Content {
     private Context mContext;
     private ArrayList<ChatModel> mChatModelArrayList = new ArrayList<>();
     private ChatAdapter mChatAdapter;
+    private boolean isShowStickerKeyBoard = false;
+    private boolean isShowKeyboard = false;
+    private ArrayList<GiftModel> mGiftModelArrayList = new ArrayList<>();
 
     public ChatMainContent(@NonNull Context context, @NonNull EventBus bus) {
         super(context);
@@ -117,6 +123,19 @@ public class ChatMainContent extends FrameLayout implements Content {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     hideKeyboard();
+                    hideGiftKeyboard();
+                } else {
+                    isShowKeyboard = true;
+                    hideGiftKeyboard();
+                }
+            }
+        });
+
+        mEditText.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isShowStickerKeyBoard){
+                    hideGiftKeyboard();
                 }
             }
         });
@@ -124,7 +143,18 @@ public class ChatMainContent extends FrameLayout implements Content {
         mImageViewSticker.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAlert();
+                if (isShowKeyboard) {
+                    hideKeyboard();
+                    showGiftKeyboard();
+                }else{
+                    if (isShowStickerKeyBoard) {
+                        hideGiftKeyboard();
+                    } else {
+                        hideKeyboard();
+                        showGiftKeyboard();
+                    }
+                }
+//                showAlert();
             }
         });
 
@@ -175,11 +205,16 @@ public class ChatMainContent extends FrameLayout implements Content {
 
     }
 
-    private void loadData(){
-
+    private void loadData() {
+//        GiftModel giftModel = new GiftModel();
+//        giftModel.setCoin(4);
+//        for (int i = 0; i < 10; i++) {
+//            mGiftModelArrayList.add(giftModel);
+//        }
+//        mGiftView.setGiftModelArrayList(mGiftModelArrayList);
     }
 
-    private void addChatData(String chatData){
+    private void addChatData(String chatData) {
         ChatModel chatModel = new ChatModel();
         chatModel.setChatText(chatData);
         chatModel.setUsername("test");
@@ -187,7 +222,18 @@ public class ChatMainContent extends FrameLayout implements Content {
         mChatAdapter.notifyItemChanged(mChatModelArrayList.size());
     }
 
+    private void showGiftKeyboard() {
+        isShowStickerKeyBoard = true;
+        mGiftView.setVisibility(VISIBLE);
+    }
+
+    private void hideGiftKeyboard() {
+        isShowStickerKeyBoard = false;
+        mGiftView.setVisibility(GONE);
+    }
+
     private void hideKeyboard() {
+        isShowKeyboard = false;
         InputMethodManager inputMethodManager = (InputMethodManager) mContext.getSystemService(Activity.INPUT_METHOD_SERVICE);
         if (inputMethodManager != null) {
             inputMethodManager.hideSoftInputFromWindow(mEditText.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);

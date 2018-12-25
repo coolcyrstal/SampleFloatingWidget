@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    tools:context=".ChatPageFragment">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/chat_page_top_layout"
@@ -165,4 +164,10 @@
             android:src="@drawable/ic_sent"
             android:tint="@color/colorPrimary" />
     </LinearLayout>
+
+    <com.example.chayent.samplefloatingwidget.View.GiftView
+        android:id="@+id/chat_page_gift_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="294dp"
+        android:visibility="gone"/>
 </LinearLayout>

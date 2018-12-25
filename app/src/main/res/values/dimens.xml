@@ -8,6 +8,7 @@
     <dimen name="image_size_36">36dp</dimen>
     <dimen name="image_size_40">48dp</dimen>
 
+    <dimen name="view_spacing_4">4dp</dimen>
     <dimen name="view_spacing_8">8dp</dimen>
     <dimen name="view_spacing_12">12dp</dimen>
     <dimen name="view_spacing_16">16dp</dimen>
